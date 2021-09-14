@@ -11,7 +11,7 @@ function TaskList() {
    }, [])
 
    const getTodos = () => {
-        axios.get('http://localhost:3000/api/tasks')
+        axios.get('http://localhost:3000/api/todos')
         .then((res) => {
             setTodos(res.data)
         })
@@ -25,14 +25,15 @@ function TaskList() {
     }
 
     const handleSubmit = (e) => {
-        axios.post('http://localhost:3000/api/addTask', todo)
-        .then(() => {
-            getTodos()
+        axios.post('http://localhost:3000/api/addTodos', todo)
+        .then((res) => {
+            console.log(res)
         })
         .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
             alert('could not add todo')
         })
-        
+        getTodos()
     }
 
     // const handleDelete = (e) => {

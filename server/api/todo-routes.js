@@ -11,7 +11,7 @@ router.get('/todos', async (req, res, next) => {
     }
 })
 
-router.post('/addTodo', checkPayload, async (req, res, next) => {
+router.post('/addTodos', checkPayload, async (req, res, next) => {
     try {
         const data = await Todo.addTodo(req.body)
         res.status(201).json(data)
