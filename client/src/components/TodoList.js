@@ -1,20 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import './css/TaskList.css'
+import './css/TodoList.css'
 
 function TaskList() {
-   const [state, setState] = useState({todo: "", description: ""})
+   const [todo, setTodo] = useState("")
+   const [todos, setTodos] = useState([])
+
+   useEffect(() => {
+        getTodos()
+   }, [])
+
+   const getTodos = () => {
+        axios.get('http://localhost:3000/api/tasks')
+        .then((res) => {
+            setTodos(res.data)
+        })
+        .catch((err) => {
+            alert('problem fetching tasks', err.message)
+        })
+   }
 
    const handleChange = (e) => {
-        const value = e.target.value
-        setState({
-            ...state,
-            [e.target.name]: value
-        })
+        setTodo( [e.target.name] = e.target.value )
     }
 
     const handleSubmit = (e) => {
-        axios.post('http://localhost:3000/api/addTask', state)
+        axios.post('http://localhost:3000/api/addTask', todo)
+        .then(() => {
+            getTodos()
+        })
+        .catch((err) => {
+            alert('could not add todo')
+        })
+        
     }
 
     // const handleDelete = (e) => {
@@ -29,15 +47,7 @@ function TaskList() {
                         placeholder="Todo"
                         type="text"
                         name="todo"
-                        value={state.todo}
-                        onChange={handleChange}
-                        />
-                        <input 
-                        className="input"
-                        placeholder="Description"
-                        type="text"
-                        name="description"
-                        value={state.description}
+                        value={todo}
                         onChange={handleChange}
                         />
                     </div>
@@ -46,23 +56,25 @@ function TaskList() {
                     </button>
                 <hr />
                 <div className="ui cards">
+                {todos.map((todo)=> (
                     <div className="card">
                         <div className="content">
                             <div className="meta">
-                                
+                                {todo.todo}
                             </div>
                         <div className="extra content">
                             <div className="ui two buttons">
                                 <div className="ui basic green button"> 
                                     Done
                                 </div>
-                                <div className="ui basic red button" onDelete={handleDelete}> 
+                                <div className="ui basic red button"> 
                                     Delete 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                ))}
             </div>
          </div> 
         )

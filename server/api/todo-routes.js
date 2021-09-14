@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const { checkPayload, checkId } = require('./task-middleware')
-const Todo = require('./task-model')
+const { checkPayload, checkId } = require('./todo-middleware')
+const Todo = require('./todo-model')
 
 router.get('/tasks', async (req, res, next) => {
     try {

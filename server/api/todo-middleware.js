@@ -1,4 +1,4 @@
-const Todo = require('./task-model')
+const Todo = require('./todo-model')
 
 async function checkId(req, res, next) {
     try{
@@ -20,7 +20,7 @@ async function checkId(req, res, next) {
     if(todo){
       next();
     }else{
-      res.status(400).json({message:"todo and description required"})
+      res.status(400).json({message:"todo required"})
     }
   }
 
