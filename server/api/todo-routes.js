@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { checkPayload, checkId } = require('./todo-middleware')
 const Todo = require('./todo-model')
 
-router.get('/tasks', async (req, res, next) => {
+router.get('/todos', async (req, res, next) => {
     try {
         const data = await Todo.getAll()
         res.status(200).json(data)
@@ -11,7 +11,7 @@ router.get('/tasks', async (req, res, next) => {
     }
 })
 
-router.post('/addTask', checkPayload, async (req, res, next) => {
+router.post('/addTodo', checkPayload, async (req, res, next) => {
     try {
         const data = await Todo.addTodo(req.body)
         res.status(201).json(data)
@@ -20,7 +20,7 @@ router.post('/addTask', checkPayload, async (req, res, next) => {
     }
 })
 
-router.delete('/deleteTask', checkId, async (req, res, next) => {
+router.delete('/deleteTodo', checkId, async (req, res, next) => {
     try {
         const data = await Todo.deleteTodo(req.params.id)
         res.status(204).json(data)
