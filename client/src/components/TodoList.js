@@ -16,7 +16,7 @@ function TaskList() {
             setTodos(res.data)
         })
         .catch((err) => {
-            alert('problem fetching tasks', err.message)
+            alert('problem fetching tasks')
         })
    }
 
