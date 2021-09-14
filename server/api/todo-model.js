@@ -5,7 +5,7 @@ function getAll(){
 }
 
 async function addTodo(todo){
-    const [todo_id] = await db('todos').insert(todo)
+    const [todo_id] = await db('todos').insert(todo, "todo_id")
     return getById(todo_id)
 }
 

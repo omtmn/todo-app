@@ -3,7 +3,7 @@ import axios from 'axios'
 import './css/TodoList.css'
 
 function TaskList() {
-   const [todo, setTodo] = useState("")
+   const [todo, setTodo] = useState('')
    const [todos, setTodos] = useState([])
 
    useEffect(() => {
@@ -24,21 +24,20 @@ function TaskList() {
         setTodo( [e.target.name] = e.target.value )
     }
 
-    const handleSubmit = (e) => {
-        axios.post('http://localhost:3000/api/addTodos', todo)
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((err) => {
-            console.log({ message: err.message, stack: err.stack })
-            alert('could not add todo')
+    const handleSubmit = () => {
+        axios.post('http://localhost:3000/api/addTodo', {
+            todo: todo
         })
         getTodos()
+        setTodo('')
     }
 
-    // const handleDelete = (e) => {
-    //     axios.delete('http://localhost:3000/api/deleteTask')
-    // }
+    const handleDelete = (todo_id) => {
+        axios.delete(`http://localhost:3000/api/deleteTodo/${todo_id}`)
+        getTodos()
+        setTodo('')
+    }
+
         return (
             <div>
                 <h3 className="heading"> Todo List </h3>
@@ -52,7 +51,10 @@ function TaskList() {
                         onChange={handleChange}
                         />
                     </div>
-                    <button className="ui primary button basic input_submit" type="submit" onClick={handleSubmit}>
+                    <button 
+                        className="ui primary button basic input_submit" 
+                        type="submit" 
+                        onClick={handleSubmit}>
                         Submit 
                     </button>
                 <hr />
@@ -65,11 +67,8 @@ function TaskList() {
                             </div>
                         <div className="extra content">
                             <div className="ui two buttons">
-                                <div className="ui basic green button"> 
-                                    Done
-                                </div>
-                                <div className="ui basic red button"> 
-                                    Delete 
+                                <div className="ui basic green button" onClick={() => {handleDelete(todo.todo_id)}}> 
+                                    Finished
                                 </div>
                             </div>
                         </div>

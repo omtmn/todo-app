@@ -1,19 +1,4 @@
 const Todo = require('./todo-model')
-
-async function checkId(req, res, next) {
-    try{
-      const todo = await Todo.getById(req.params.id)
-      if(todo){
-        req.todo = todo
-        next()
-      }
-      else{
-        res.status(404).json({message:"todo not found"})
-      } 
-    }catch(err){
-      next(err)
-    }
-  }
   
   function checkPayload(req, res, next) {
     const {todo} = req.body
@@ -25,6 +10,5 @@ async function checkId(req, res, next) {
   }
 
   module.exports = {
-      checkId,
       checkPayload
   }

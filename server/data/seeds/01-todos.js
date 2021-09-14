@@ -1,19 +1,15 @@
 const todos = [
     { 
         todo: 'clean', 
-        todo_complete: false,
     },
     { 
         todo: 'feed the dogs', 
-        todo_complete: false,
     },
     { 
         todo: 'finish project', 
-        todo_complete: false,
     },
     { 
         todo: 'play some fifa', 
-        todo_complete: false,
     },
   ]
   

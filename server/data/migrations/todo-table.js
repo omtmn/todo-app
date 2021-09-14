@@ -3,7 +3,6 @@ exports.up = async function(knex) {
     .createTable('todos', table => {
         table.increments('todo_id')
         table.string('todo', 128).notNullable()
-        table.boolean('todo_complete').defaultTo(false)
         table.timestamps(true, true)
     })
 }
