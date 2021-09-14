@@ -1,31 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 import './css/TaskList.css'
 
+function TaskList() {
+   const [state, setState] = useState({todo: "", description: ""})
 
-class TaskList extends React.Component {
-    state = {
-        task: ""
+   const handleChange = (e) => {
+        const value = e.target.value
+        setState({
+            ...state,
+            [e.target.name]: value
+        })
     }
 
-    onDelete = () => {
-        console.log('Deleted')
+    const handleSubmit = (e) => {
+        axios.post('http://localhost:3000/api/addTask', state)
     }
 
-    render() {
+    // const handleDelete = (e) => {
+    //     axios.delete('http://localhost:3000/api/deleteTask')
+    // }
         return (
             <div>
-                <h3 className="heading"> Task List </h3>
-                <div className="ui input input_container">
-                    <input 
-                    className="input"
-                    placeholder="Your Tasks"
-                    value={this.state.task}
-                    onChange={(e) => {this.setState({task: e.target.value})}}
-                    />
-                </div>
-                <button className="ui primary button basic input_submit">
-                    Submit 
-                 </button>
+                <h3 className="heading"> Todo List </h3>
+                    <div className="ui input input_container">
+                        <input 
+                        className="input"
+                        placeholder="Todo"
+                        type="text"
+                        name="todo"
+                        value={state.todo}
+                        onChange={handleChange}
+                        />
+                        <input 
+                        className="input"
+                        placeholder="Description"
+                        type="text"
+                        name="description"
+                        value={state.description}
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <button className="ui primary button basic input_submit" type="submit" onClick={handleSubmit}>
+                        Submit 
+                    </button>
                 <hr />
                 <div className="ui cards">
                     <div className="card">
@@ -36,10 +54,10 @@ class TaskList extends React.Component {
                         <div className="extra content">
                             <div className="ui two buttons">
                                 <div className="ui basic green button"> 
-                                    Complete Task 
+                                    Done
                                 </div>
-                                <div className="ui basic red button" onClick={()=>this.onDelete()}> 
-                                    Delete Task 
+                                <div className="ui basic red button" onDelete={handleDelete}> 
+                                    Delete 
                                 </div>
                             </div>
                         </div>
@@ -49,6 +67,5 @@ class TaskList extends React.Component {
          </div> 
         )
     }
-}
 
 export default TaskList
