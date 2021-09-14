@@ -41,7 +41,7 @@ function TaskList() {
         return (
             <div>
                 <h3 className="heading"> Todo List </h3>
-                    <div className="ui input input_container">
+                    <div className="ui input">
                         <input 
                         className="input"
                         placeholder="Todo"
@@ -52,7 +52,7 @@ function TaskList() {
                         />
                     </div>
                     <button 
-                        className="ui primary button basic input_submit" 
+                        className="ui primary button basic" 
                         type="submit" 
                         onClick={handleSubmit}>
                         Submit 
